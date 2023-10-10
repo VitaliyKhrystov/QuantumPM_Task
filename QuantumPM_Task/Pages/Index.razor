@@ -1,0 +1,31 @@
+﻿@page "/"
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <NavLink class="btn btn-light bg-white border border-secondary" href="create">New note</NavLink>
+        <div>
+            <Search SearchItemCallBack="SearchNote"></Search>
+        </div>
+        <p>Total notes: @TotalNotes</p>
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            @if (NotesAfterSearch.Count != 0)
+            {
+                @foreach (var note in NotesAfterSearch.OrderByDescending(n => n.UpdatedAt != null? n.UpdatedAt : n.CreatedAt))
+                {
+                    <div class="mb-3 mx-5">
+                        <Note CurrentNote="note"></Note>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="d-flex justify-content-center">Not Found!</p>
+            }
+        </blockquote>
+    </div>
+    <div class="card-footer text-body-secondary d-flex justify-content-center">
+        QuantumPM Test Task.Vitalii Khrystov
+    </div>
+</div>

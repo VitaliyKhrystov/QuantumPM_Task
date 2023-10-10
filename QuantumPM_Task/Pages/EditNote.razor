@@ -1,0 +1,39 @@
+﻿@page "/edit/{noteid}"
+
+
+<div class="card">
+    <EditForm Model="@currentNote" class="card-header" OnValidSubmit="UpdateNote">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label >Title</label>
+            <InputText @bind-Value="currentNote.Title" id="note-title" class="form-control" @oninput='(e => TitleCounter = e.Value.ToString().Length)' maxlength="@maxTitleLength"/>
+           <div class="d-flex justify-content-end opacity-75 align-items-center">
+                <input @bind-value="TitleCounter" class="text-end border border-0 opacity-75" />
+                <p>/ @maxTitleLength</p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <InputTextArea @bind-Value="currentNote.Content" id="note-content" class="form-control" rows="3" @oninput='(e => ContentCounter = e.Value.ToString().Length)' maxlength="@maxContentLength" />
+            <div class="d-flex justify-content-end opacity-75 align-items-center">
+                <input @bind-value="ContentCounter" class="text-end border border-0 opacity-75" />
+                <p>/ @maxContentLength</p>
+            </div>
+        </div>
+         <div class="mb-3">
+            <label for="content" class="form-label">Created</label>
+            <input @bind="currentNote.CreatedAt" class="form-control" rows="3" disabled/>
+        </div>
+        @if (currentNote.UpdatedAt != null)
+        {
+            <div class="mb-3">
+                <label for="content" class="form-label">Last updated</label>
+                <input @bind="currentNote.UpdatedAt" class="form-control" rows="3" disabled />
+            </div>
+        }
+        <ValidationSummary />
+        <button type="submit" id="button-submit" class="btn btn-success">Update</button>
+        <button type="button" class="btn btn-danger ms-3" @onclick="DeleteNote">Delete</button>
+        <NavLink class="btn btn-secondary ms-3" href="/">Back</NavLink>
+    </EditForm>
+</div>

@@ -1,0 +1,36 @@
+﻿
+<div class="card">
+    <div class="card-header">
+        <div class="container">
+            <div class="row">
+                <div class="col text-start">
+                    @CurrentNote.Title
+                </div>
+                <div class="col-md-auto text-start">
+                    @if (CurrentNote.CreatedAt != DateTime.MinValue && !CurrentNote.UpdatedAt.HasValue)
+                    {
+                        @GetDate(CurrentNote.CreatedAt, "Created")
+                    }
+                    @if (CurrentNote.UpdatedAt.HasValue)
+                    {
+                        @GetDate((DateTime)CurrentNote.UpdatedAt, "Updated")
+                    }
+                </div>
+                <div class="col col-lg-4 text-end">
+                    <button class="btn btn-light bg-white border border-secondary me-4" type="button" 
+                           @onclick="(e => isHide = !isHide)">
+                           @(isHide?"View note":"Hide Note")</button>
+                    <a class="btn btn-light bg-white border border-secondary" href="edit/@CurrentNote.Id">Edit note</a>
+                </div>
+            </div>
+        </div>
+           @if (!isHide)
+            {
+                <div class="card-body bg-white mx-3 mb-1 mt-3">
+                    <blockquote class="blockquote mb-0">
+                        @CurrentNote.Content
+                    </blockquote>
+                </div>
+            }    
+    </div
+</div>

@@ -1,0 +1,31 @@
+﻿@page "/create"
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="card">
+    <EditForm Model="@newNote" class="card-header" OnValidSubmit="AddNote">
+        <DataAnnotationsValidator />
+        <div class="mb-3">
+            <label >Title</label>
+            <InputText @bind-Value="newNote.Title" class="form-control" @oninput='(e => GetLength(e, "title"))' maxlength="@maxTitleLength"/>
+           <div class="d-flex justify-content-end opacity-75 align-items-center">
+                <input @bind-value="TitleCounter" class="text-end border border-0 opacity-75" />
+                <p>/ @maxTitleLength</p>
+            </div>
+
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <InputTextArea @bind-Value="newNote.Content" class="form-control" rows="3" @oninput='(e => GetLength(e, "content"))' maxlength="@maxContentLength" />
+            <div class="d-flex justify-content-end opacity-75 align-items-center">
+                <input @bind-value="ContentCounter" class="text-end border border-0 opacity-75" />
+                <p>/ @maxContentLength</p>
+            </div>
+        </div>
+        <ValidationSummary />
+        <button type="submit" class="btn btn-success">Create</button>
+        <NavLink class="btn btn-secondary ms-3" href="/">Back</NavLink>
+    </EditForm>
+</div>
+
+
+
